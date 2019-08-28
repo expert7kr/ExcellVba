@@ -50,6 +50,7 @@ Sub regexpExecute1(InStr_, iRow)
     End If
 End Sub
 
+' 아래 함수가 더 쓸모가 있는 것 같음
 Function ReEx_(InStr_, pattern_) As Object
 '   On Error Resume Next '에러날 경우 그냥 지나가라
     Dim reEx
