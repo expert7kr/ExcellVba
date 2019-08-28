@@ -20,56 +20,26 @@ Sub regexpExecute(InStr_, iRow)
     'Dim InStr_
     Dim pattern_
     Dim inSpect_
-    'InStr_ = "45,000원?40,500원?(10%할인)?2,025원(5%적립)"
-    'InStr_ = "<a id='endpoint' class='yt-simple-endpoint style-scope ytd-guide-entry-renderer' tabindex='-1' title='이승만TV' href='/channel/UC0ddvpoS9dg3EFWo62VarOA'>"
-    'InStr_ = InStr_
-    'pattern_ = "[\w,*]+원"
-    'pattern_ = "(?<=title=\')[^\']+" '패턴 수식에서 에러남
-    'pattern_ = "title=\'[^\']+"
+    
     patternNum = 1
     
-    'MsgBox InStr_
     Set inSpect_ = ReEx_(InStr_, patternNum)
-    'MsgBox Not inSpect_ Is Nothing
-    'MsgBox inSpect_ ' 에러남
     If Not inSpect_ Is Nothing Then
-        'For Each eachReEx In inSpect_
-            'MsgBox eachReEx
-        'Next eachReEx
-        'MsgBox inSpect_
         Cells(iRow, 2).Value = Split(inSpect_(0), "'")(1)
     End If
 End Sub
 Sub regexpExecute1(InStr_, iRow)
     'On Error Resume Next
     
-    'Dim InStr_
     Dim pattern_
     Dim inSpect_
     Dim link_
     
     'pattern_ = "href=\'[^\']+"
     patternNum = 2
-    'MsgBox InStr_
-    'Set inSpect_ = ReEx_(InStr_, pattern_)
     Set inSpect_ = ReEx_(InStr_, patternNum)
-    'MsgBox Not inSpect_ Is Nothing
-    'MsgBox inSpect_ ' 에러남
     If Not inSpect_ Is Nothing Then
-        'For Each eachReEx In inSpect_
-            'MsgBox eachReEx
-        'Next eachReEx
-        'MsgBox inSpect_
         link_ = "http://youtube.com" + Split(inSpect_(0), "'")(1)
-        'celladdress = Cells(iRow, 2).Address
-        'MsgBox link_
-        'With Worksheets("Sheet2")
-         '   Hyperlinks.Add Anchor:=.Range("C" & iRow), _
-          '  Address:="youtube.com/channel/UCUPoOcZy6IuGWsnXhzqyQAQ /channel/UC7XByOuOXCkzmO7R7i7-2bw", _
-           ' ScreenTip:="", _
-            'TextToDisplay:="김정호"
-            '.Select
-        'End With
         linkCellValue = Cells(iRow, 2).Value
         With ActiveSheet
             .Hyperlinks.Add Anchor:=.Range("C" & iRow), _
@@ -99,13 +69,11 @@ Function ReEx_(InStr_, patternNum) As Object
     
     Set reEx = CreateObject("vbscript.regexp")
     With reEx
-        '.Global = True
         .Global = False
         .Pattern = pattern_ '날짜: "2019/02/12" 과 "2019/02/12~2019/02/15" 모두 찾음
     End With
     
     If reEx.Test(InStr_) Then
-        'MsgBox reEx.Test(InStr_) & " " & i & ": " & celVal_
         Set ReEx_ = reEx.Execute(InStr_) '객체들이 변수에 담길 '반환하는 곳
     End If
     
@@ -133,22 +101,13 @@ End Function
 Sub MicrosoftRegExecute(InStr_, iRow)
     'On Error Resume Next
     
-    'Dim InStr_
     Dim pattern_
     Dim inSpect_
-    Dim link_
     
     'pattern_ = "href=\'[^\']+"
     patternNum = 3
     Set inSpect_ = ReEx_(InStr_, patternNum)
     If Not inSpect_ Is Nothing Then
-        'link_ = "http://youtube.com" + Split(inSpect_(0), "'")(1)
-        'linkCellValue = Cells(iRow, 2).Value
-        'With ActiveSheet
-        '    .Hyperlinks.Add Anchor:=.Range("C" & iRow), _
-        '    Address:=link_, _
-        '    TextToDisplay:=linkCellValue
-        'End With
         Cells(iRow, 1).Value = inSpect_(0)
     Else
         Cells(iRow, 1).Value = ""
@@ -157,7 +116,6 @@ End Sub
 Sub fastCampusListMake(InStr_, iRow)
     'On Error Resume Next
     
-    'Dim InStr_
     Dim pattern_
     Dim inSpect_
     Dim link_
